@@ -6,6 +6,7 @@ import aggregator_env_variables
 from blog import BlogInfo
 from linklog.execute import Linklog
 from atoananet.execute import AToaNaNet
+from colmeia.execute import Colmeia
 from config_aggregator import Configuration
 from datetime import date, timedelta, datetime
 
@@ -16,11 +17,14 @@ CONFIG = Configuration(os.environ['BLOG_CONFIG'])
 def call_aggregator_login(blog):
 	aggregators = [AToaNaNet(blog)]
 	for aggregator in aggregators:
-        aggregator.login()
+		aggregator.login()
 		aggregator.sendpost()
 
 def call_aggregator_without_login(blog):
-	aggregators = [Linklog(blog)]
+	aggregators = [
+	#Linklog(blog),
+	Colmeia(blog),
+	]
 	for aggregator in aggregators:
 		aggregator.sendpost()
 

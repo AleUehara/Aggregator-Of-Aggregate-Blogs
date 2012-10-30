@@ -9,8 +9,10 @@ CONFIG = Configuration(os.environ['BLOG_CONFIG'])
 class BlogInfo():
 	def __init__(self, configname):
 		self.configname    = configname
-		self.name  = CONFIG.read('name', self.configname)
-		self.url   = CONFIG.read('url', self.configname)
+		self.name    = CONFIG.read('name', self.configname)
+		self.url     = CONFIG.read('url', self.configname)
+		self.tags    = CONFIG.read('tags', self.configname)
+		self.colmeia = CONFIG.read('colmeia', self.configname)
 
 
 
