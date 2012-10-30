@@ -11,3 +11,5 @@ class Configuration(object):
     return self.config.get(group, name) 
   def items(self, group='directory'): 
     return self.config.items(group)
+  def groups(self):
+  	return self.config.sections()

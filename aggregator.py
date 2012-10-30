@@ -11,6 +11,7 @@ from datetime import date, timedelta, datetime
 CONFIG = Configuration(os.environ['AGGREGATOR_CONFIG'])
 logging.basicConfig(filename=os.environ['AGGREGATOR_LOG'],level=logging.WARNING)
 
+
 class Site(object):
 	def __init__(self):
 		self.mech          = mechanize.Browser()
@@ -41,20 +42,23 @@ class Site(object):
 		("Referer", "http://www.atoananet.com.br/usuarios/")
 		]
 
+
 class AggregatorSite(Site):
-	def __init__(self, configname):
+	def __init__(self, blog, configname):
 		Site.__init__(self)
 		self.configname    = configname
 		self.url_sendpost  = CONFIG.read('url_sendpost', self.configname)
+		self.blog          = blog
 
 	def sendpost(self):
 		self.mech.open(self.url_sendpost)
 		for f in self.mech.forms():
 			print f		
 
+
 class AggregatorSiteLoginRequired(AggregatorSite):
-	def __init__(self, configname):
-		AggregatorSite.__init__(self, configname)
+	def __init__(self, blog, configname):
+		AggregatorSite.__init__(self, blog, configname)
 		self.configname    = configname
 		self.login_url     = CONFIG.read('login_url', self.configname)
 		self.user          = CONFIG.read('user', self.configname)
@@ -77,8 +81,8 @@ class AggregatorSiteLoginRequired(AggregatorSite):
 
 
 class AggregatorSiteLoginNotRequired(AggregatorSite):
-	def __init__(self, configname):
-		AggregatorSite.__init__(self, configname)
+	def __init__(self, blog,configname):
+		AggregatorSite.__init__(self, blog, configname)
 
 
 
